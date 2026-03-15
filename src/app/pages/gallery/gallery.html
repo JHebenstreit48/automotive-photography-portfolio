@@ -1,1 +1,55 @@
-<p>gallery works!</p>
+<section class="gallery">
+  <div class="gallery__header">
+    <p class="gallery__eyebrow">Portfolio</p>
+    <h1 class="gallery__title">The Collection</h1>
+    <p class="gallery__subtitle">Exotic and luxury automotive photography from museums, showrooms, and events.</p>
+  </div>
+
+  <div class="gallery__carousel">
+    <div class="carousel__main">
+      <button class="carousel__btn carousel__btn--prev" (click)="prev()">&#8592;</button>
+      <div class="carousel__image-wrap" (click)="openLightbox(currentIndex())">
+        <img
+          [src]="images[currentIndex()].src"
+          [alt]="images[currentIndex()].alt"
+          class="carousel__image"
+        />
+        <div class="carousel__overlay">
+          <p class="carousel__location">{{ images[currentIndex()].location }}</p>
+          <p class="carousel__alt">{{ images[currentIndex()].alt }}</p>
+          <span class="carousel__hint">Click to enlarge</span>
+        </div>
+      </div>
+      <button class="carousel__btn carousel__btn--next" (click)="next()">&#8594;</button>
+    </div>
+
+    <div class="carousel__dots">
+      @for (image of images; track image.id; let i = $index) {
+        <button
+          class="carousel__dot"
+          [class.active]="i === currentIndex()"
+          (click)="goTo(i)">
+        </button>
+      }
+    </div>
+
+    <div class="carousel__thumbs">
+      @for (image of images; track image.id; let i = $index) {
+        <div
+          class="carousel__thumb"
+          [class.active]="i === currentIndex()"
+          (click)="goTo(i)">
+          <img [src]="image.src" [alt]="image.alt" />
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+@if (lightboxOpen()) {
+  <app-lightbox
+    [images]="images"
+    [currentIndex]="lightboxIndex()"
+    (close)="closeLightbox()">
+  </app-lightbox>
+}

@@ -1,1 +1,23 @@
-<p>lightbox works!</p>
+<div class="lightbox" (click)="close.emit()">
+  <div class="lightbox__content" (click)="$event.stopPropagation()">
+    <button class="lightbox__close" (click)="close.emit()">&#10005;</button>
+
+    <button class="lightbox__btn lightbox__btn--prev" (click)="prev()">&#8592;</button>
+
+    <div class="lightbox__image-wrap">
+      <img
+        [src]="images()[activeIndex()].src"
+        [alt]="images()[activeIndex()].alt"
+        class="lightbox__image"
+      />
+    </div>
+
+    <button class="lightbox__btn lightbox__btn--next" (click)="next()">&#8594;</button>
+
+    <div class="lightbox__caption">
+      <p class="lightbox__location">{{ images()[activeIndex()].location }}</p>
+      <p class="lightbox__alt">{{ images()[activeIndex()].alt }}</p>
+      <p class="lightbox__counter">{{ activeIndex() + 1 }} / {{ images().length }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--navbar-height);
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1000;
+  transition: var(--transition);
+
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    cursor: pointer;
+
+    &-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: 0.1em;
+    }
+  }
+
+  &__logo-accent {
+    color: var(--color-accent-gold);
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+
+    a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: var(--transition);
+      position: relative;
+      padding-bottom: 4px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--color-accent-gold), var(--color-accent-purple));
+        transition: var(--transition);
+      }
+
+      &:hover, &.active {
+        color: var(--color-text-primary);
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  &__hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-text-primary);
+      transition: var(--transition);
+    }
+
+    &.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    &.open span:nth-child(2) { opacity: 0; }
+    &.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+
+  @media (max-width: 768px) {
+    &__hamburger {
+      display: flex;
+    }
+
+    &__links {
+      display: none;
+      position: absolute;
+      top: var(--navbar-height);
+      left: 0;
+      width: 100%;
+      flex-direction: column;
+      background: rgba(10, 10, 15, 0.97);
+      padding: 2rem;
+      gap: 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+
+      &--open {
+        display: flex;
+      }
+    }
+  }
+}
