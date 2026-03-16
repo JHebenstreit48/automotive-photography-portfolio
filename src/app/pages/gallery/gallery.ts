@@ -22,7 +22,7 @@ export class Gallery {
   lightboxIndex = signal(0);
 
   images: GalleryImage[] = [
-    { id: 1, src: '/images/ferrari-458-spider-side-view.jpg', alt: 'Ferrari 458 Spider', location: 'Midwest Exotic Motors' },
+    { id: 1, src: '/images/ferrari-458-spider-side-view.jpg', alt: 'Ferrari 458 Spider', location: 'Exotic Car Dealership' },
     // { id: 2, src: '/images/ferrari-speciale-front.jpg', alt: 'Ferrari 458 Speciale', location: 'Midwest Exotic Motors' },
     // { id: 3, src: '/images/ferrari-interior.jpg', alt: 'Ferrari Carbon Interior Detail', location: 'Midwest Exotic Motors' },
     // { id: 4, src: '/images/lamborghini-huracan-red.jpg', alt: 'Lamborghini Huracán Evo', location: 'Lamborghini Museum, Italy' },
