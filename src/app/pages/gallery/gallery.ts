@@ -27,6 +27,7 @@ export class Gallery {
     { id: 3, src: '/images/ferrari-458-speciale-three-quarters-view.jpg', alt: 'Ferrari 458 Speciale Spider', location: 'Exotic CarDealership' },
     { id: 4, src: '/images/ferrari-458-speciale-shifter-view.jpg', alt: 'Ferrari 458 Speciale Shifter', location: 'Exotic Car Dealership' }, 
     { id: 5, src: '/images/lamborghini-huracan-evo-front.jpg', alt: 'Lamborghini Huracán Evo', location: 'Lamborghini Museum, Italy' },
+    { id: 6, src: '/images/lamborghini-aventador-svj-side-view.jpg', alt: 'Lamborghini Aventador SVJ', location: 'Lamborghini Museum, Italy' },
     // { id: 5, src: '/images/lamborghini-svj-green.jpg', alt: 'Lamborghini Aventador SVJ', location: 'Lamborghini Museum, Italy' },
     // { id: 6, src: '/images/lamborghini-gallardo-silver.jpg', alt: 'Lamborghini Gallardo', location: 'Lamborghini Museum, Italy' },
     // { id: 7, src: '/images/lamborghini-asterion-blue.jpg', alt: 'Lamborghini Asterion Concept', location: 'Lamborghini Museum, Italy' },
