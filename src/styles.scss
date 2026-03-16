@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-bg-primary: #0a0a0f;
+  --color-bg-secondary: #12121a;
+  --color-bg-card: #1a1a2e;
+  --color-accent-gold: #d4af37;
+  --color-accent-purple: #7b2fff;
+  --color-accent-blue: #2979ff;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0a0b0;
+  --color-border: rgba(212, 175, 55, 0.2);
+  --navbar-height: 70px;
+  --font-primary: 'Inter', sans-serif;
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+main {
+  padding-top: var(--navbar-height);
+  min-height: 100vh;
+}
