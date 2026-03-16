@@ -1,1 +1,100 @@
-<p>contact works!</p>
+<section class="contact">
+  <div class="contact__container">
+
+    <div class="contact__header">
+      <p class="contact__eyebrow">Contact</p>
+      <h1 class="contact__title">Get In Touch</h1>
+      <p class="contact__subtitle">
+        Interested in automotive photography for your dealership or event?
+        I would love to hear from you.
+      </p>
+    </div>
+
+    <div class="contact__content">
+      <div class="contact__info">
+        <div class="contact__info-card">
+          <h3 class="contact__info-title">Portfolio Use Notice</h3>
+          <p class="contact__info-text">
+            All images displayed on this site are personal portfolio work and are
+            not for sale or commercial use. They are presented solely to demonstrate
+            photographic skill, composition, and technique.
+          </p>
+        </div>
+
+        <div class="contact__info-card">
+          <h3 class="contact__info-title">Available For</h3>
+          <ul class="contact__list">
+            <li>Dealership Inventory Photography</li>
+            <li>Exotic & Luxury Vehicle Shoots</li>
+            <li>Car Show & Event Coverage</li>
+            <li>Detail & Interior Photography</li>
+          </ul>
+        </div>
+      </div>
+
+      <form
+        class="contact__form"
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field">
+
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="contact__hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+        <div class="contact__field">
+          <label class="contact__label" for="name">Name</label>
+          <input
+            class="contact__input"
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Your name"
+            required
+          />
+        </div>
+
+        <div class="contact__field">
+          <label class="contact__label" for="email">Email</label>
+          <input
+            class="contact__input"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+          />
+        </div>
+
+        <div class="contact__field">
+          <label class="contact__label" for="subject">Subject</label>
+          <input
+            class="contact__input"
+            type="text"
+            id="subject"
+            name="subject"
+            placeholder="Photography inquiry"
+          />
+        </div>
+
+        <div class="contact__field">
+          <label class="contact__label" for="message">Message</label>
+          <textarea
+            class="contact__textarea"
+            id="message"
+            name="message"
+            rows="6"
+            placeholder="Tell me about your project..."
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="contact__submit">
+          Send Message
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</section>
