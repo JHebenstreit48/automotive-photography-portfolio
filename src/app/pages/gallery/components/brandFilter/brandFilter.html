@@ -1,0 +1,10 @@
+<div class="brand-filter">
+  @for (brand of brands(); track brand) {
+    <button
+      class="brand-filter__btn"
+      [class.active]="brand === activeBrand()"
+      (click)="brandSelected.emit(brand)">
+      {{ brand }}
+    </button>
+  }
+</div>

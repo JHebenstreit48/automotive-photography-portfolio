@@ -1,0 +1,10 @@
+<div class="category-tabs">
+  @for (category of categories(); track category) {
+    <button
+      class="category-tabs__tab"
+      [class.active]="category === activeCategory()"
+      (click)="categorySelected.emit(category)">
+      {{ formatLabel(category) }}
+    </button>
+  }
+</div>

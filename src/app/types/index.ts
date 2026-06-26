@@ -1,0 +1,1 @@
+export type { Vehicle, VehicleCategory } from '@app/types/vehicle';

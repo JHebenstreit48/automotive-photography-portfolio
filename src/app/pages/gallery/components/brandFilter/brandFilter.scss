@@ -1,0 +1,30 @@
+.brand-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+
+  &__btn {
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: var(--transition);
+
+    &:hover {
+      border-color: var(--color-accent-gold);
+      color: var(--color-accent-gold);
+    }
+
+    &.active {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--color-accent-gold);
+      color: var(--color-accent-gold);
+    }
+  }
+}

@@ -1,0 +1,1 @@
+export { getImageUrl } from '@/app/utils/imageUrl';

@@ -1,96 +1,107 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Lightbox } from '@shared/lightbox/lightbox';
+import { Lightbox } from '@/app/shared/lightbox/lightbox';
+import { CategoryTabs } from '@/app/pages/gallery/components/categoryTabs/categoryTabs';
+import { BrandFilter } from './components/brandFilter/brandFilter';
+import { VehicleService } from '@app/core/services/vehicle.service';
+import { getImageUrl } from '@app/utils/imageUrl';
 
 export interface GalleryImage {
-  id: number;
+  id: number | string;
   src: string;
   alt: string;
   camera?: string;
   location?: string;
+  category?: string;
+  make?: string;
 }
 
 @Component({
   selector: 'app-gallery',
-  imports: [CommonModule, Lightbox],
+  imports: [CommonModule, Lightbox, CategoryTabs, BrandFilter],
   templateUrl: './gallery.html',
   styleUrl: './gallery.scss',
 })
-export class Gallery {
+export class Gallery implements OnInit {
   currentIndex = signal(0);
   lightboxOpen = signal(false);
   lightboxIndex = signal(0);
 
-  images: GalleryImage[] = [
-    {
-      id: 1,
-      src: '/images/ferrari-458-speciale-side-view.jpg',
-      alt: 'Ferrari 458 Speciale Spider',
-      location: 'Exotic Car Dealership',
-    },
-    {
-      id: 2,
-      src: '/images/ferrari-458-speciale-front-view.jpg',
-      alt: 'Ferrari 458 Speciale Spider',
-      location: 'Exotic Car Dealership',
-    },
-    {
-      id: 3,
-      src: '/images/ferrari-458-speciale-three-quarters-view.jpg',
-      alt: 'Ferrari 458 Speciale Spider',
-      location: 'Exotic Car Dealership',
-    },
-    {
-      id: 4,
-      src: '/images/ferrari-458-speciale-shifter-view.jpg',
-      alt: 'Ferrari 458 Speciale Shifter',
-      location: 'Exotic Car Dealership',
-    },
-    {
-      id: 5,
-      src: '/images/lamborghini-huracan-evo-front.jpg',
-      alt: 'Lamborghini Huracán Evo',
-      location: "Lamborghini Museum, Sant'Agata Bolognese, Italy",
-    },
-    {
-      id: 6,
-      src: '/images/lamborghini-aventador-svj-side-view.jpg',
-      alt: 'Lamborghini Aventador SVJ',
-      location: "Lamborghini Museum, Sant'Agata Bolognese, Italy",
-    },
-    {
-      id: 7,
-      src: '/images/lamborghini-centenario-side-view.jpg',
-      alt: 'Lamborghini Centenario',
-      location: "Lamborghini Museum, Sant'Agata Bolognese, Italy",
-    },
-    {
-      id: 8,
-      src: '/images/ferrari-dino-206gt-1967.jpg',
-      alt: 'Ferrari Dino 206 GT (1967)',
-      location: 'Museo Enzo Ferrari Modena, Italy',
-    },
-    {
-      id: 9,
-      src: '/images/ferrari-488-pista-2018.jpg',
-      alt: 'Ferrari 488 Pista (2018)',
-      location: 'Museo Enzo Ferrari Modena, Italy',
-    },
-    // { id: 5, src: '/images/lamborghini-svj-green.jpg', alt: 'Lamborghini Aventador SVJ', location: 'Lamborghini Museum, Italy' },
-    // { id: 6, src: '/images/lamborghini-gallardo-silver.jpg', alt: 'Lamborghini Gallardo', location: 'Lamborghini Museum, Italy' },
-    // { id: 7, src: '/images/lamborghini-asterion-blue.jpg', alt: 'Lamborghini Asterion Concept', location: 'Lamborghini Museum, Italy' },
-    // { id: 8, src: '/images/lamborghini-concept-white.jpg', alt: 'Lamborghini Concept', location: 'Lamborghini Museum, Italy' },
-    // { id: 9, src: '/images/lamborghini-huracan-orange.jpg', alt: 'Lamborghini Huracán Performante', location: 'Lamborghini Museum, Italy' },
-    // { id: 10, src: '/images/ferrari-vintage-547.jpg', alt: 'Vintage Ferrari #547', location: 'Ferrari Museum, Italy' },
-    // { id: 11, src: '/images/ferrari-vintage-123.jpg', alt: 'Vintage Ferrari #123', location: 'Ferrari Museum, Italy' },
-  ];
+  allVehicles = signal<GalleryImage[]>([]);
+  activeCategory = signal<string>('');
+  activeBrand = signal<string>('');
+
+  categories = computed(() =>
+    [...new Set(this.allVehicles().map(v => v.category ?? ''))].filter(Boolean)
+  );
+
+  brands = computed(() =>
+    [...new Set(
+      this.allVehicles()
+        .filter(v => v.category === this.activeCategory())
+        .map(v => v.make ?? '')
+    )].filter(Boolean)
+  );
+
+  images = computed(() => {
+    let filtered = this.allVehicles();
+    if (this.activeCategory()) {
+      filtered = filtered.filter(v => v.category === this.activeCategory());
+    }
+    if (this.activeBrand()) {
+      filtered = filtered.filter(v => v.make === this.activeBrand());
+    }
+    return filtered;
+  });
+
+  constructor(private vehicleService: VehicleService) {}
+
+  async ngOnInit(): Promise<void> {
+    try {
+      const vehicles = await this.vehicleService.getVehicles();
+      if (vehicles.length > 0) {
+        this.allVehicles.set(vehicles.map(v => ({
+          id: v.id,
+          src: getImageUrl(`images/${v.category}/${v.make?.toLowerCase()}/${v.filename}`),
+          alt: v.title,
+          location: v.location,
+          camera: v.camera,
+          category: v.category,
+          make: v.make,
+        })));
+      }
+
+      if (this.categories().length > 0) {
+        this.activeCategory.set(this.categories()[0]);
+        if (this.brands().length > 0) {
+          this.activeBrand.set(this.brands()[0]);
+        }
+      }
+    } catch (err) {
+      console.error('[Gallery] Failed to load vehicles from backend', err);
+    }
+  }
+
+  selectCategory(category: string): void {
+    this.activeCategory.set(category);
+    this.activeBrand.set('');
+    this.currentIndex.set(0);
+    if (this.brands().length > 0) {
+      this.activeBrand.set(this.brands()[0]);
+    }
+  }
+
+  selectBrand(brand: string): void {
+    this.activeBrand.set(brand);
+    this.currentIndex.set(0);
+  }
 
   next(): void {
-    this.currentIndex.update((i) => (i + 1) % this.images.length);
+    this.currentIndex.update((i) => (i + 1) % this.images().length);
   }
 
   prev(): void {
-    this.currentIndex.update((i) => (i - 1 + this.images.length) % this.images.length);
+    this.currentIndex.update((i) => (i - 1 + this.images().length) % this.images().length);
   }
 
   goTo(index: number): void {
