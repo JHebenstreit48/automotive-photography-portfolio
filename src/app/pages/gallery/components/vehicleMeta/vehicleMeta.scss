@@ -1,0 +1,56 @@
+.vehicle-meta {
+  margin-top: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  &__vehicle {
+    font-size: 0.85rem;
+    color: var(--color-accent-gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  &__gear {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+
+  &__date {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 0.25rem;
+  }
+
+  &__tag {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2px 10px;
+    letter-spacing: 0.05em;
+  }
+
+  &__edited {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin: 0;
+    max-width: 50rem;
+    opacity: 0.7;
+  }
+}

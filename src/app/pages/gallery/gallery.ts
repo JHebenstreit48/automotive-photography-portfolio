@@ -3,22 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Lightbox } from '@/app/shared/lightbox/lightbox';
 import { CategoryTabs } from '@/app/pages/gallery/components/categoryTabs/categoryTabs';
 import { BrandFilter } from './components/brandFilter/brandFilter';
+import { VehicleMeta } from './components/vehicleMeta/vehicleMeta';
 import { VehicleService } from '@app/core/services/vehicle.service';
 import { getImageUrl } from '@app/utils/imageUrl';
-
-export interface GalleryImage {
-  id: number | string;
-  src: string;
-  alt: string;
-  camera?: string;
-  location?: string;
-  category?: string;
-  make?: string;
-}
+import { GalleryImageMetadata } from '@app/types/galleryImageMetadata';
 
 @Component({
   selector: 'app-gallery',
-  imports: [CommonModule, Lightbox, CategoryTabs, BrandFilter],
+  imports: [CommonModule, Lightbox, CategoryTabs, BrandFilter, VehicleMeta],
   templateUrl: './gallery.html',
   styleUrl: './gallery.scss',
 })
@@ -27,7 +19,7 @@ export class Gallery implements OnInit {
   lightboxOpen = signal(false);
   lightboxIndex = signal(0);
 
-  allVehicles = signal<GalleryImage[]>([]);
+  allVehicles = signal<GalleryImageMetadata[]>([]);
   activeCategory = signal<string>('');
   activeBrand = signal<string>('');
 
@@ -68,6 +60,14 @@ export class Gallery implements OnInit {
           camera: v.camera,
           category: v.category,
           make: v.make,
+          model: v.model,
+          year: v.year,
+          aperture: v.aperture,
+          iso: v.iso,
+          dateTaken: v.dateTaken,
+          tags: v.tags,
+          edited: v.edited,
+          editedNotes: v.editedNotes,
         })));
       }
 

@@ -1,0 +1,25 @@
+<div class="vehicle-meta">
+  @if (vehicleTitle) {
+    <p class="vehicle-meta__vehicle">{{ vehicleTitle }}</p>
+  }
+
+  @if (gearLine) {
+    <p class="vehicle-meta__gear">{{ gearLine }}</p>
+  }
+
+  @if (vehicle().dateTaken) {
+    <p class="vehicle-meta__date">{{ formatDate(vehicle().dateTaken!) }}</p>
+  }
+
+  @if (vehicle().tags && vehicle().tags!.length > 0) {
+    <div class="vehicle-meta__tags">
+      @for (tag of vehicle().tags!; track tag) {
+        <span class="vehicle-meta__tag">{{ tag }}</span>
+      }
+    </div>
+  }
+
+  @if (vehicle().edited && vehicle().editedNotes) {
+    <p class="vehicle-meta__edited">✎ {{ vehicle().editedNotes }}</p>
+  }
+</div>

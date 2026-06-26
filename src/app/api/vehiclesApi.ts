@@ -23,14 +23,14 @@ function mapToVehicle(data: AnyObj): Vehicle {
     iso: typeof data['iso'] === 'number' ? (data['iso'] as number) : undefined,
     aperture: data['aperture'] ? String(data['aperture']) : undefined,
     format: data['format'] ? String(data['format']) : undefined,
+    edited: typeof data['edited'] === 'boolean' ? (data['edited'] as boolean) : undefined,
+    editedNotes: data['editedNotes'] ? String(data['editedNotes']) : undefined,
   };
 }
 
 export async function fetchVehicles(category?: VehicleCategory): Promise<Vehicle[]> {
   try {
-    const url = category
-      ? `${BASE_URL}?category=${encodeURIComponent(category)}`
-      : BASE_URL;
+    const url = category ? `${BASE_URL}?category=${encodeURIComponent(category)}` : BASE_URL;
 
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP error: ${res.status}`);

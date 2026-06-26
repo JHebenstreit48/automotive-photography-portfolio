@@ -24,4 +24,6 @@ export interface Vehicle {
   iso?: number;
   aperture?: string;
   format?: string;
+  edited?: boolean;
+  editedNotes?: string;
 }
